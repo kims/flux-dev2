@@ -2,14 +2,14 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: app2
-  namespace: flux-system
+  namespace: flux-dev2
 spec:
   interval: 1m
   path: .
   sourceRef:
     kind: GitRepository
     name: flux-dev2
-  targetNamespace: dev2
+  targetNamespace: flux-dev2
   prune: true
   decryption:
     provider: sops
