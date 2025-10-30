@@ -11,7 +11,7 @@ kubectl create -f Kustomization.app2.yaml
 rm /tmp/age.*
 age-keygen -o /tmp/age.key &> /tmp/age.pub
 
-kubectl delete secret -n flux-dev2 sops-age
+kubectl delete secret -n flux-dev2 sops-age 2>/dev/null
 kubectl create secret generic sops-age \
   --namespace=flux-dev2 \
   --from-file=age.agekey=/tmp/age.key \
@@ -38,4 +38,7 @@ stringData:
   DB_PASSWORD: ${PW}
 EOF
 
+mkdir secrets
 sops --encrypt -i secrets/secret.yaml
+
+git add secrets/secret.yaml; git add .sops.yaml; git commit -m "encrypted secret"; git push
