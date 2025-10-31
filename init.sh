@@ -26,6 +26,8 @@ creation_rules:
       - $(cat /tmp/age.pub | awk '{print $3}')
 EOF
 
+mkdir secrets
+
 PW=$(openssl rand -base64 32)
 cat > secrets/secret.yaml <<EOF
 apiVersion: v1
@@ -38,7 +40,6 @@ stringData:
   DB_PASSWORD: ${PW}
 EOF
 
-mkdir secrets
 sops --encrypt -i secrets/secret.yaml
 
 git add secrets/secret.yaml; git add .sops.yaml; git commit -m "encrypted secret"; git push
