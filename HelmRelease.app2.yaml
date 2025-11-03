@@ -10,6 +10,7 @@ spec:
   chart:
     spec:
       chart: ./app2
+      reconcileStrategy: Revision
       sourceRef:
         kind: GitRepository
         name: flux-dev2
